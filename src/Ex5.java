@@ -32,6 +32,7 @@ public class Ex5 {
         caps.setCapability("appPackage", "org.wikipedia");
         caps.setCapability("appActivity", ".main.MainActivity");
         caps.setCapability("app", "C:\\Users\\User\\Desktop\\JavaAppiumAutomation\\apks\\org.wikipedia.apk");
+        caps.setCapability("newCommandTimeout", 300);
         return caps;
     }
 
