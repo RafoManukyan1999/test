@@ -260,8 +260,8 @@ public class Ex5 {
         WebElement element = waitForElementPresent(by, error_message, 10);
 
         if (element.getSize().getWidth() <= 0 || element.getSize().getHeight() <= 0) {
-            throw new IllegalStateException("Элемент имеет нулевой размер: ширина=" +
-                    element.getSize().getWidth() + ", высота=" + element.getSize().getHeight());
+            throw new IllegalStateException("The element has a zero size: width= " +
+                    element.getSize().getWidth() + ", height=" + element.getSize().getHeight());
         }
 
         int left_x = element.getLocation().getX();
@@ -285,7 +285,7 @@ public class Ex5 {
 
             Thread.sleep(1000);
         } catch (Exception e) {
-            System.err.println("Ошибка при свайпе: " + e.getMessage());
+            System.err.println("Error during swipe " + e.getMessage());
             e.printStackTrace();
         }
     }
