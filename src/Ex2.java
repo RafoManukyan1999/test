@@ -42,7 +42,7 @@ public class Ex2 {
 
     @Test
     public void testSearchFieldHasExpectedText() {
-        waitForElementAndClick(
+        waitForElementAndClick(        
                 By.xpath("//*[contains(@text,'Skip')]"),
                 "Cannot find 'Skip' button",
                 5
