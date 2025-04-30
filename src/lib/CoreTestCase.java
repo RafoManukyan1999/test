@@ -21,7 +21,19 @@ public class CoreTestCase extends TestCase {
         caps.setCapability("automationName", "UiAutomator2");
         caps.setCapability("appPackage", "org.wikipedia");
         caps.setCapability("appActivity", ".main.MainActivity");
-        caps.setCapability("app", "C:\\Users\\User\\Desktop\\JavaAppiumAutomation\\apks\\org.wikipedia.apk");
+
+        String osName = System.getProperty("os.name").toLowerCase();
+        String appPath;
+        
+        if (osName.contains("win")) {
+            // Путь для Windows
+            appPath = "C:\\Users\\User\\Desktop\\JavaAppiumAutomation\\apks\\org.wikipedia.apk";
+        } else {
+            // Путь для macOS
+            appPath = System.getProperty("user.home") + "/Desktop/JavaAppiumAutomation/apks/org.wikipedia.apk";
+        }
+        
+        caps.setCapability("app", appPath);
 
         String appiumURL = "http://127.0.0.1:4723";
         driver = new AndroidDriver(new URL(appiumURL), caps);

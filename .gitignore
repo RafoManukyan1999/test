@@ -27,3 +27,41 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+# Default ignored files
+.idea/shelf/
+.idea/workspace.xml
+
+# Compiled class files
+*.class
+target/
+build/
+
+# Log files
+*.log
+
+# Package files
+*.jar
+*.war
+*.ear
+
+# IntelliJ
+.idea/tasks.xml
+.idea/dictionaries
+.idea/vcs.xml
+.idea/jsLibraryMappings.xml
+.idea/gradle.xml
+.idea/libraries
+*.iml
+*.iws
+
+# OS-specific files
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Конфигурационные файлы с локальными настройками
+local.properties
