@@ -139,6 +139,43 @@ public class FirstTest extends CoreTestCase {
     }
 
     @Test
+    public void testAmountOfEmptySearch() {
+        MainPageObject.waitForElementAndClick(
+                By.xpath("//*[contains(@text,'Skip')]"),
+                "Cannot find 'Skip' input",
+                5
+        );
+
+        MainPageObject.waitForElementAndClick(
+                By.xpath("//*[contains(@text,'Search Wikipedia')]"),
+                "Cannot find 'Search Wikipedia' input",
+                5
+        );
+
+        String searchLine = "Qwerty123123";
+        MainPageObject.waitForElementAndSendKeys(
+                By.xpath("//*[contains(@text,'Search Wikipedia')]"),
+                searchLine,
+                "Cannot find search input",
+                5
+        );
+
+        String search_result_locator = "//androidx.recyclerview.widget.RecyclerView[@resource-id=\"org.wikipedia:id/search_results_list\"]/android.view.ViewGroup[6]";
+        String emptyResultLabel = "org.wikipedia:id/results_text";
+        MainPageObject.waitForElementPresent(
+                By.id(emptyResultLabel),
+                "Cannot find No results label " + searchLine,
+                15
+        );
+
+        MainPageObject.assertElementNotPresent(
+                By.xpath(search_result_locator),
+                "We have found some results by request " + searchLine
+        );
+
+    }
+
+    @Test
     public void testChangeScreenOrientationOnSearchResults() {
         MainPageObject.waitForElementAndClick(
                 By.xpath("//*[contains(@text,'Skip')]"),
