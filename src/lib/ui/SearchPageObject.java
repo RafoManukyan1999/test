@@ -10,12 +10,6 @@ public class SearchPageObject extends MainPageObject {
             SEARCH_INIT_ELEMENT = "org.wikipedia:id/search_container",
             SEARCH_INPUT = "//*[contains(@text,'Search Wikipedia')]",
             SEARCH_CANCEL_BUTTON = "org.wikipedia:id/search_close_btn",
-            SEARCH_RESULT_BY_TITLE_TPL = "//*[@resource-id='org.wikipedia:id/page_list_item_title'][@text='{TITLE}']",
-            SEARCH_EMPTY_RESULT_ELEMENT = "org.wikipedia:id/search_empty_view",
-            SEARCH_RESULT_ELEMENT = "org.wikipedia:id/search_results_list",
-            SEARCH_RESULT_LIST = "//*[@resource-id='org.wikipedia:id/search_results_list']/*[@resource-id='org.wikipedia:id/page_list_item_container']",
-            SEARCH_RESULT_TITLE = "//*[@resource-id='org.wikipedia:id/page_list_item_title']",
-            SEARCH_RESULT_DESCRIPTION = "//*[@resource-id='org.wikipedia:id/page_list_item_description']",
             SEARCH_RESULT_BY_SUBSTRING_TPL = "//android.widget.TextView[@resource-id=\"org.wikipedia:id/page_list_item_title\" and @text='{SUBSTRING}']";
 
     public SearchPageObject(AppiumDriver driver)
@@ -32,44 +26,71 @@ public class SearchPageObject extends MainPageObject {
 
     public static void clickSkipButton()
     {
-        waitForElementAndClick(By.xpath(SEARCH_SKIP_LINK), "Cannot find and click skip button", 5);
+        waitForElementAndClick(
+                By.xpath(SEARCH_SKIP_LINK),
+                "Cannot find and click skip button",
+                5
+        );
     }
 
     public static void initSearchInput()
     {
-        waitForElementAndClick(By.id(SEARCH_INIT_ELEMENT), "Cannot find and click search init element", 5);
-        waitForElementPresent(By.id(SEARCH_INIT_ELEMENT), "Cannot find search init element after clicking", 5);
+        waitForElementAndClick(By.id(SEARCH_INIT_ELEMENT),
+                "Cannot find and click search init element",
+                5
+        );
+        waitForElementPresent(By.id(SEARCH_INIT_ELEMENT),
+                "Cannot find search init element after clicking",
+                5
+        );
     }
 
     public static void waitForCancelButtonToAppear()
     {
-        waitForElementPresent(By.id(SEARCH_CANCEL_BUTTON), "Cannot find search cancel button", 5);
+        waitForElementPresent(By.id(SEARCH_CANCEL_BUTTON),
+                "Cannot find search cancel button",
+                5
+        );
     }
 
     public static void waitForCancelButtonToDisappear()
     {
-        waitForElementNotPresent(By.id(SEARCH_CANCEL_BUTTON), "Search cancel button is still present!", 5);
+        waitForElementNotPresent(By.id(SEARCH_CANCEL_BUTTON),
+                "Search cancel button is still present!",
+                5
+        );
     }
 
     public static void clickCancelSearch()
     {
-        waitForElementAndClick(By.id(SEARCH_CANCEL_BUTTON), "Cannot find and click search cancel button", 5);
+        waitForElementAndClick(By.id(SEARCH_CANCEL_BUTTON),
+                "Cannot find and click search cancel button",
+                5
+        );
     }
 
     public static void typeSearchLine(String search_line)
     {
-        waitForElementAndSendKeys(By.xpath(SEARCH_INPUT), search_line, "Cannot find and type into search input", 5);
+        waitForElementAndSendKeys(By.xpath(SEARCH_INPUT),
+                search_line, "Cannot find and type into search input",
+                5
+        );
     }
 
     public void waitForSearchResult(String substring)
     {
         String search_result_xpath = getResultSearchElement(substring);
-        waitForElementPresent(By.xpath(search_result_xpath), "Cannot find search result with substring " + substring, 15);
+        waitForElementPresent(By.xpath(search_result_xpath),
+                "Cannot find search result with substring " + substring,
+                15);
     }
 
     public void ClickByArticleWithSubstring(String substring)
     {
         String search_result_xpath = getResultSearchElement(substring);
-        waitForElementAndClick(By.xpath(search_result_xpath), "Cannot find and click search result with substring " + substring, 15);
+        waitForElementAndClick(By.xpath(search_result_xpath),
+                "Cannot find and click search result with substring " + substring,
+                15
+        );
     }
 }

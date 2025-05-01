@@ -1,12 +1,9 @@
 import io.appium.java_client.android.AndroidDriver;
 import lib.CoreTestCase;
-import lib.ui.ArticlePageObject;
-import lib.ui.MainPageObject;
-import lib.ui.SearchPageObject;
+import lib.ui.*;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.ScreenOrientation;
 import com.google.common.collect.ImmutableMap;
 
@@ -75,108 +72,31 @@ public class FirstTest extends CoreTestCase {
         SearchPageObject.ClickByArticleWithSubstring("Appium");
 
         ArticlePageObject ArticlePageObject = new ArticlePageObject(driver);
-        ArticlePageObject.waitForTitleElement();
+        ArticlePageObject.waitForTitleElement( "Appium" );
         ArticlePageObject.swipeToFooter();
     }
 
     @Test
-    public void testSaveFirstArticleToMyList() {
-        MainPageObject.waitForElementAndClick(
-                By.xpath("//*[contains(@text,'Skip')]"),
-                "Cannot find 'Skip' input",
-                5
-        );
+    public void testSaveFirstArticleToMyList()
+    {
+        SearchPageObject SearchPageObject = new SearchPageObject(driver);
+        SearchPageObject.clickSkipButton();
+        SearchPageObject.initSearchInput();
+        SearchPageObject.typeSearchLine("Java");
+        SearchPageObject.ClickByArticleWithSubstring("Java (programming language)");
 
-        MainPageObject.waitForElementAndClick(
-                By.xpath("//*[contains(@text,'Search Wikipedia')]"),
-                "Cannot find 'Search Wikipedia' input",
-                5
-        );
+        ArticlePageObject ArticlePageObject = new ArticlePageObject(driver);
+        ArticlePageObject.waitForTitleElement("Java (programming language)");
+        String article_title = ArticlePageObject.getArticleTitle();
+        String name_of_folder = "Learning programming";
+        ArticlePageObject.addArticleToMyList(name_of_folder);
 
-        MainPageObject.waitForElementAndSendKeys(
-                By.xpath("//*[contains(@text,'Search Wikipedia')]"),
-                "Java",
-                "Cannot find search input",
-                5
-        );
+        NavigationUI NavigationUI = new NavigationUI(driver);
+        NavigationUI.clickViewArticle();
 
-        MainPageObject.waitForElementAndClick(
-                By.xpath("//android.widget.TextView[@resource-id=\"org.wikipedia:id/page_list_item_title\" and @text=\"Java (programming language)\"]"),
-                "Cannot find 'Object-oriented programming language' topic searching by 'java'",
-                10
-        );
-
-        MainPageObject.waitForElementPresent(
-                By.xpath("//android.widget.TextView[@text=\"Java (programming language)\"]"),
-                "Cannot find article title 'Java (programming language)'",
-                10
-        );
-
-        MainPageObject.waitForElementAndClick(
-                By.xpath("//android.widget.TextView[@content-desc=\"Save\"]"),
-                "Cannot find 'Save' Button",
-                10
-        );
-
-        MainPageObject.waitForElementPresent(
-                By.xpath("//android.widget.TextView[@resource-id=\"org.wikipedia:id/snackbar_text\"]"),
-                "Cannot find text 'Saved Java (programming language). Do you want to add it to a list?' on Snackbar",
-                15
-        );
-
-        MainPageObject.waitForElementAndClick(
-                By.xpath("//android.widget.Button[@resource-id=\"org.wikipedia:id/snackbar_action\"]"),
-                "Cannot find 'Add to list' Button",
-                10
-        );
-
-        MainPageObject.waitForElementAndSendKeys(
-                By.xpath("//android.widget.EditText[@resource-id=\"org.wikipedia:id/text_input\"]"),
-                "Test15",
-                "Cannot find text input",
-                15
-        );
-
-        MainPageObject.waitForElementAndClick(
-                By.xpath("//android.widget.Button[@resource-id=\"android:id/button1\"]"),
-                "Cannot find 'OK' Button",
-                15
-        );
-
-        MainPageObject.waitForElementPresent(
-                By.xpath("//android.widget.TextView[@resource-id=\"org.wikipedia:id/snackbar_text\"]"),
-                "Cannot find text 'Moved Java (programming language) to Test6.' on the pop-up",
-                15
-        );
-
-        MainPageObject.waitForElementAndClick(
-                By.xpath("//android.widget.Button[@resource-id=\"org.wikipedia:id/snackbar_action\"]"),
-                "Cannot find 'View list' button on the pop-up",
-                15
-        );
-
-        MainPageObject.waitForElementAndClick(
-                By.xpath("//android.widget.Button[@resource-id=\"org.wikipedia:id/buttonView\"]"),
-                "Cannot find 'Got it' Button",
-                15
-        );
-
-        MainPageObject.waitForElementPresent(
-                By.xpath("//android.widget.TextView[@resource-id=\"org.wikipedia:id/page_list_item_title\"]"),
-                "Cannot find text 'Java (programming language)' in the Saved list",
-                15
-        );
-
-        MainPageObject.swipeElementToLeft(
-                By.xpath("//android.widget.TextView[@resource-id=\"org.wikipedia:id/page_list_item_title\"]"),
-                "Cannot find 'Java (programming language)' in the Saved list"
-        );
-
-        MainPageObject.waitForElementNotPresent(
-                By.xpath("//android.widget.TextView[@resource-id=\"org.wikipedia:id/page_list_item_title\"]"),
-                "Cannot delete Saved article from the list",
-                15
-        );
+        MyListsPageObject MyListsPageObject = new MyListsPageObject(driver);
+        MyListsPageObject.vewArticlePage();
+        MyListsPageObject.swipeArticleToDelete(article_title);
     }
 
     @Test
