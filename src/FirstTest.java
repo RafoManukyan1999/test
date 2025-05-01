@@ -1,6 +1,7 @@
 import io.appium.java_client.android.AndroidDriver;
 import lib.CoreTestCase;
 import lib.ui.MainPageObject;
+import lib.ui.SearchPageObject;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -20,30 +21,13 @@ public class FirstTest extends CoreTestCase {
 
     @Test
     public void testSearch() {
-        mainPageObject.waitForElementAndClick(
-                By.xpath("//*[contains(@text,'Skip')]"),
-                "Cannot find 'Skip' input",
-                5
-        );
 
-        mainPageObject.waitForElementAndClick(
-                By.xpath("//*[contains(@text,'Search Wikipedia')]"),
-                "Cannot find 'Search Wikipedia' input",
-                5
-        );
+        SearchPageObject SearchPageObject = new SearchPageObject(driver);
 
-        mainPageObject.waitForElementAndSendKeys(
-                By.xpath("//*[contains(@text,'Search Wikipedia')]"),
-                "Java",
-                "Cannot find search input",
-                15
-        );
-
-        mainPageObject.waitForElementPresent(
-                By.xpath("//android.widget.TextView[@resource-id=\"org.wikipedia:id/page_list_item_description\" and @text=\"Object-oriented programming language\"]"),
-                "Cannot find 'Object-oriented programming language' topic searching by 'java'",
-                15
-        );
+        SearchPageObject.clickSkipButton();
+        SearchPageObject.initSearchInput();
+        SearchPageObject.typeSearchLine("Java");
+        SearchPageObject.waitForSearchResult("Object-oriented programming language");
     }
 
     @Test
