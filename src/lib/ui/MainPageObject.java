@@ -13,31 +13,31 @@ import java.util.List;
 
 public class MainPageObject {
 
-    protected AppiumDriver driver;
+    protected static AppiumDriver driver;
 
     public MainPageObject(AppiumDriver driver) {
-        this.driver = driver;
+        MainPageObject.driver = driver;
     }
 
-    public WebElement waitForElementPresent(By by, String errorMessage, long timeoutInSeconds) {
+    public static WebElement waitForElementPresent(By by, String errorMessage, long timeoutInSeconds) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
         wait.withMessage(errorMessage + "\n");
         return wait.until(ExpectedConditions.presenceOfElementLocated(by));
     }
 
-    public WebElement waitForElementAndClick(By by, String errorMessage, long timeoutInSeconds) {
+    public static WebElement waitForElementAndClick(By by, String errorMessage, long timeoutInSeconds) {
         WebElement element = waitForElementPresent(by, errorMessage, timeoutInSeconds);
         element.click();
         return element;
     }
 
-    public WebElement waitForElementAndSendKeys(By by, String value, String errorMessage, long timeoutInSeconds) {
+    public static WebElement waitForElementAndSendKeys(By by, String value, String errorMessage, long timeoutInSeconds) {
         WebElement element = waitForElementPresent(by, errorMessage, timeoutInSeconds);
         element.sendKeys(value);
         return element;
     }
 
-    public boolean waitForElementNotPresent(By by, String errorMessage, long timeoutInSeconds) {
+    public static boolean waitForElementNotPresent(By by, String errorMessage, long timeoutInSeconds) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
         wait.withMessage(errorMessage + "\n");
         return wait.until(ExpectedConditions.invisibilityOfElementLocated(by));
