@@ -1,5 +1,6 @@
 import io.appium.java_client.android.AndroidDriver;
 import lib.CoreTestCase;
+import lib.ui.ArticlePageObject;
 import lib.ui.MainPageObject;
 import lib.ui.SearchPageObject;
 import org.junit.Assert;
@@ -27,7 +28,7 @@ public class FirstTest extends CoreTestCase {
         SearchPageObject.clickSkipButton();
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("Java");
-        SearchPageObject.waitForSearchResult("Object-oriented programming language");
+        SearchPageObject.waitForSearchResult("Java (programming language)");
     }
 
     @Test
@@ -45,84 +46,37 @@ public class FirstTest extends CoreTestCase {
 
     @Test
     public void testCompareArticleTitle() {
-        MainPageObject.waitForElementAndClick(
-                By.xpath("//*[contains(@text,'Skip')]"),
-                "Cannot find 'Skip' input",
-                5
-        );
+        SearchPageObject SearchPageObject = new SearchPageObject(driver);
 
-        MainPageObject.waitForElementAndClick(
-                By.xpath("//*[contains(@text,'Search Wikipedia')]"),
-                "Cannot find 'Search Wikipedia' input",
-                5
-        );
+        SearchPageObject.clickSkipButton();
+        SearchPageObject.initSearchInput();
+        SearchPageObject.typeSearchLine("Java");
+        SearchPageObject.ClickByArticleWithSubstring("Java (programming language)");
 
-        MainPageObject.waitForElementAndSendKeys(
-                By.xpath("//*[contains(@text,'Search Wikipedia')]"),
-                "Java",
-                "Cannot find search input",
-                5
-        );
+        ArticlePageObject ArticlePageObject = new ArticlePageObject(driver);
+        String article_Title = ArticlePageObject.getArticleTitle();
 
-        MainPageObject.waitForElementAndClick(
-                By.xpath("//android.widget.TextView[@resource-id=\"org.wikipedia:id/page_list_item_title\" and @text=\"Java (programming language)\"]"),
-                "Cannot find 'Object-oriented programming language' topic searching by 'java'",
-                10
-        );
-
-        WebElement titleElement = MainPageObject.waitForElementPresent(
-                By.xpath("//android.widget.TextView[@text=\"Java (programming language)\"]"),
-                "Cannot find article title",
-                10
-        );
-
-        String articleTitle = titleElement.getAttribute("text");
         
         Assert.assertEquals(
                 "We see unexpected title",
                 "Java (programming language)",
-                articleTitle
+                article_Title
         );
     }
 
     @Test
     public void testSwipeArticle() {
-        MainPageObject.waitForElementAndClick(
-                By.xpath("//*[contains(@text,'Skip')]"),
-                "Cannot find 'Skip' input",
-                5
-        );
 
-        MainPageObject.waitForElementAndClick(
-                By.xpath("//*[contains(@text,'Search Wikipedia')]"),
-                "Cannot find 'Search Wikipedia' input",
-                5
-        );
+        SearchPageObject SearchPageObject = new SearchPageObject(driver);
 
-        MainPageObject.waitForElementAndSendKeys(
-                By.xpath("//*[contains(@text,'Search Wikipedia')]"),
-                "Appium",
-                "Cannot find search input",
-                5
-        );
+        SearchPageObject.clickSkipButton();
+        SearchPageObject.initSearchInput();
+        SearchPageObject.typeSearchLine("Appium");
+        SearchPageObject.ClickByArticleWithSubstring("Appium");
 
-        MainPageObject.waitForElementAndClick(
-                By.xpath("//android.widget.TextView[@resource-id=\"org.wikipedia:id/page_list_item_description\" and @text=\"Automation for Apps\"]"),
-                "Cannot find 'Automation for Apps' topic searching by 'Appium'",
-                10
-        );
-
-        MainPageObject.waitForElementPresent(
-                By.xpath("(//android.widget.TextView[@text=\"Appium\"])[1]"),
-                "Cannot find article title",
-                15
-        );
-
-        MainPageObject.swipeUpToFindElement(
-                By.xpath("//android.widget.TextView[@text=\"View article in browser\"]"),
-                "Cannot find the end of article",
-                20
-        );
+        ArticlePageObject ArticlePageObject = new ArticlePageObject(driver);
+        ArticlePageObject.waitForTitleElement();
+        ArticlePageObject.swipeToFooter();
     }
 
     @Test

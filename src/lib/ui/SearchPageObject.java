@@ -16,7 +16,7 @@ public class SearchPageObject extends MainPageObject {
             SEARCH_RESULT_LIST = "//*[@resource-id='org.wikipedia:id/search_results_list']/*[@resource-id='org.wikipedia:id/page_list_item_container']",
             SEARCH_RESULT_TITLE = "//*[@resource-id='org.wikipedia:id/page_list_item_title']",
             SEARCH_RESULT_DESCRIPTION = "//*[@resource-id='org.wikipedia:id/page_list_item_description']",
-            SEARCH_RESULT_BY_SUBSTRING_TPL = "//android.widget.TextView[@resource-id=\"org.wikipedia:id/page_list_item_description\" and @text='{SUBSTRING}']";
+            SEARCH_RESULT_BY_SUBSTRING_TPL = "//android.widget.TextView[@resource-id=\"org.wikipedia:id/page_list_item_title\" and @text='{SUBSTRING}']";
 
     public SearchPageObject(AppiumDriver driver)
     {
@@ -65,5 +65,11 @@ public class SearchPageObject extends MainPageObject {
     {
         String search_result_xpath = getResultSearchElement(substring);
         waitForElementPresent(By.xpath(search_result_xpath), "Cannot find search result with substring " + substring, 15);
+    }
+
+    public void ClickByArticleWithSubstring(String substring)
+    {
+        String search_result_xpath = getResultSearchElement(substring);
+        waitForElementAndClick(By.xpath(search_result_xpath), "Cannot find and click search result with substring " + substring, 15);
     }
 }
