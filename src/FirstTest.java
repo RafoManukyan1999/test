@@ -21,7 +21,6 @@ public class FirstTest extends CoreTestCase {
     public void testSearch() {
 
         SearchPageObject SearchPageObject = new SearchPageObject(driver);
-
         SearchPageObject.clickSkipButton();
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("Java");
@@ -32,7 +31,6 @@ public class FirstTest extends CoreTestCase {
     public void testCancelSearch() {
 
         SearchPageObject SearchPageObject = new SearchPageObject(driver);
-
         SearchPageObject.clickSkipButton();
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("Java");
@@ -44,7 +42,6 @@ public class FirstTest extends CoreTestCase {
     @Test
     public void testCompareArticleTitle() {
         SearchPageObject SearchPageObject = new SearchPageObject(driver);
-
         SearchPageObject.clickSkipButton();
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("Java");
@@ -65,7 +62,6 @@ public class FirstTest extends CoreTestCase {
     public void testSwipeArticle() {
 
         SearchPageObject SearchPageObject = new SearchPageObject(driver);
-
         SearchPageObject.clickSkipButton();
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("Appium");
