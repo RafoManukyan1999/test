@@ -97,7 +97,7 @@ public class MainPageObject {
         driver.perform(Collections.singletonList(swipe));
     }
 
-    public int getAmountOfElements(By by) {
+    public static int getAmountOfElements(By by) {
         List<WebElement> elements = driver.findElements(by);
         return elements.size();
     }
