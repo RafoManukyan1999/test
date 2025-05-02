@@ -12,7 +12,11 @@ public class SearchPageObject extends MainPageObject {
             SEARCH_CANCEL_BUTTON = "org.wikipedia:id/search_close_btn",
             SEARCH_RESULT_BY_SUBSTRING_TPL = "//android.widget.TextView[@resource-id=\"org.wikipedia:id/page_list_item_title\" and @text='{SUBSTRING}']",
             SEARCH_RESULT_ELEMENT = "//androidx.recyclerview.widget.RecyclerView[@resource-id=\"org.wikipedia:id/search_results_list\"]/android.view.ViewGroup",
-            SEARCH_EMPTY_RESULT_ELEMENT = "org.wikipedia:id/results_text";
+            SEARCH_EMPTY_RESULT_ELEMENT = "org.wikipedia:id/results_text",
+            SEARCH_RESULT_BY_TITLE_AND_DESCRIPTION_TPL =
+                 "//android.view.ViewGroup[" +
+                 ".//android.widget.TextView[@resource-id='org.wikipedia:id/page_list_item_title' and @text='{TITLE}'] and " +
+                 ".//android.widget.TextView[@resource-id='org.wikipedia:id/page_list_item_description' and @text='{DESCRIPTION}']]";
 
     public SearchPageObject(AppiumDriver driver)
     {
@@ -23,6 +27,23 @@ public class SearchPageObject extends MainPageObject {
     private static String getResultSearchElement(String substring)
     {
         return SEARCH_RESULT_BY_SUBSTRING_TPL.replace("{SUBSTRING}", substring);
+    }
+
+    private static String getResultSearchElementByTitleAndDescription(String title, String description)
+    {
+        return SEARCH_RESULT_BY_TITLE_AND_DESCRIPTION_TPL
+                .replace("{TITLE}", title)
+                .replace("{DESCRIPTION}", description);
+    }
+
+public void waitForElementByTitleAndDescription(String title, String description)
+    {
+        String search_result_xpath = getResultSearchElementByTitleAndDescription(title, description);
+        waitForElementPresent(
+                By.xpath(search_result_xpath),
+                "Cannot find search result with title '" + title + "' and description '" + description + "'",
+                15
+        );
     }
     /* TEMPLATES METHODS */
 

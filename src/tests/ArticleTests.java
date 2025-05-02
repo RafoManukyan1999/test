@@ -39,4 +39,16 @@ public class ArticleTests extends CoreTestCase
         ArticlePageObject.waitForTitleElement( "Appium" );
         ArticlePageObject.swipeToFooter();
     }
+
+    @Test
+    public void testSearchResultsByTitleAndDescription() {
+        SearchPageObject SearchPageObject = new SearchPageObject(driver);
+        SearchPageObject.clickSkipButton();
+        SearchPageObject.initSearchInput();
+        SearchPageObject.typeSearchLine("Java");
+
+        SearchPageObject.waitForElementByTitleAndDescription("Java (programming language)", "Object-oriented programming language");
+        //SearchPageObject.waitForElementByTitleAndDescription("Python (programming language)", "High-level programming language");
+        //SearchPageObject.waitForElementByTitleAndDescription("C++ (programming language)", "General-purpose programming language");
+    }
 }
