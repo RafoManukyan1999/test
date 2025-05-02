@@ -48,7 +48,5 @@ public class ArticleTests extends CoreTestCase
         SearchPageObject.typeSearchLine("Java");
 
         SearchPageObject.waitForElementByTitleAndDescription("Java (programming language)", "Object-oriented programming language");
-        //SearchPageObject.waitForElementByTitleAndDescription("Python (programming language)", "High-level programming language");
-        //SearchPageObject.waitForElementByTitleAndDescription("C++ (programming language)", "General-purpose programming language");
     }
 }
