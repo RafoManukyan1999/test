@@ -36,7 +36,7 @@ public class SearchPageObject extends MainPageObject {
                 .replace("{DESCRIPTION}", description);
     }
 
-public void waitForElementByTitleAndDescription(String title, String description)
+    public void waitForElementByTitleAndDescription(String title, String description)
     {
         String search_result_xpath = getResultSearchElementByTitleAndDescription(title, description);
         waitForElementPresent(
