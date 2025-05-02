@@ -1,11 +1,7 @@
-import io.appium.java_client.android.AndroidDriver;
 import lib.CoreTestCase;
 import lib.ui.*;
 import org.junit.Assert;
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.ScreenOrientation;
-import com.google.common.collect.ImmutableMap;
 
 public class FirstTest extends CoreTestCase {
 
@@ -45,7 +41,7 @@ public class FirstTest extends CoreTestCase {
         SearchPageObject.clickSkipButton();
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("Java");
-        SearchPageObject.ClickByArticleWithSubstring("Java (programming language)");
+        SearchPageObject.clickByArticleWithSubstring("Java (programming language)");
 
         ArticlePageObject ArticlePageObject = new ArticlePageObject(driver);
         String article_Title = ArticlePageObject.getArticleTitle();
@@ -65,7 +61,7 @@ public class FirstTest extends CoreTestCase {
         SearchPageObject.clickSkipButton();
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("Appium");
-        SearchPageObject.ClickByArticleWithSubstring("Appium");
+        SearchPageObject.clickByArticleWithSubstring("Appium");
 
         ArticlePageObject ArticlePageObject = new ArticlePageObject(driver);
         ArticlePageObject.waitForTitleElement( "Appium" );
@@ -79,7 +75,7 @@ public class FirstTest extends CoreTestCase {
         SearchPageObject.clickSkipButton();
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("Java");
-        SearchPageObject.ClickByArticleWithSubstring("Java (programming language)");
+        SearchPageObject.clickByArticleWithSubstring("Java (programming language)");
 
         ArticlePageObject ArticlePageObject = new ArticlePageObject(driver);
         ArticlePageObject.waitForTitleElement("Java (programming language)");
@@ -120,104 +116,45 @@ public class FirstTest extends CoreTestCase {
     }
 
     @Test
-    public void testChangeScreenOrientationOnSearchResults() {
-        MainPageObject.waitForElementAndClick(
-                By.xpath("//*[contains(@text,'Skip')]"),
-                "Cannot find 'Skip' input",
-                15
-        );
+    public void testChangeScreenOrientationOnSearchResults()
+    {
+        SearchPageObject SearchPageObject = new SearchPageObject(driver);
+        SearchPageObject.clickSkipButton();
+        SearchPageObject.initSearchInput();
+        SearchPageObject.typeSearchLine("Java");
+        SearchPageObject.clickByArticleWithSubstring("Java (programming language)");
 
-        MainPageObject.waitForElementAndClick(
-                By.xpath("//*[contains(@text,'Search Wikipedia')]"),
-                "Cannot find 'Search Wikipedia' input",
-                15
-        );
-
-        String searchLine = "Java";
-        MainPageObject.waitForElementAndSendKeys(
-                By.xpath("//*[contains(@text,'Search Wikipedia')]"),
-                searchLine,
-                "Cannot find search input",
-                15
-        );
-
-        MainPageObject.waitForElementAndClick(
-                By.xpath("//android.widget.TextView[@resource-id=\"org.wikipedia:id/page_list_item_title\" and @text=\"Java (programming language)\"]"),
-                "Cannot find 'Object-oriented programming language' topic searching by " + searchLine,
-                15
-        );
-
-        String titleBeforeRotation = MainPageObject.waitForElementAndGetAttribute(
-                By.xpath("//android.widget.TextView[@text=\"Java (programming language)\"]"),
-                "text",
-                "Cannot find article title",
-                15
-        );
-
-        ((AndroidDriver) driver).rotate(ScreenOrientation.LANDSCAPE);
-
-        String titleAfterRotation = MainPageObject.waitForElementAndGetAttribute(
-                By.xpath("//android.widget.TextView[@text=\"Java (programming language)\"]"),
-                "text",
-                "Cannot find article title",
-                15
-        );
+        ArticlePageObject ArticlePageObject = new ArticlePageObject(driver);
+        String title_before_rotation = ArticlePageObject.getArticleTitle();
+        rotateScreenLandscape();
+        String title_after_rotation = ArticlePageObject.getArticleTitle();
 
         Assert.assertEquals(
                 "Article title has been changed after screen rotation",
-                titleBeforeRotation,
-                titleAfterRotation
+                title_before_rotation,
+                title_after_rotation
         );
 
-        ((AndroidDriver) driver).rotate(ScreenOrientation.PORTRAIT);
-
-        String titleAfterSecondRotation = MainPageObject.waitForElementAndGetAttribute(
-                By.xpath("//android.widget.TextView[@text=\"Java (programming language)\"]"),
-                "text",
-                "Cannot find article title",
-                15
-        );
+        rotateScreenPortrait();
+        String titleAfterSecondRotation = ArticlePageObject.getArticleTitle();
 
         Assert.assertEquals(
                 "Article title has been changed after screen rotation",
-                titleBeforeRotation,
+                title_before_rotation,
                 titleAfterSecondRotation
         );
     }
 
     @Test
-    public void testCheckSearchArticleInBackground() {
-        MainPageObject.waitForElementAndClick(
-                By.xpath("//*[contains(@text,'Skip')]"),
-                "Cannot find 'Skip' input",
-                5
-        );
+    public void testCheckSearchArticleInBackground()
+    {
+        SearchPageObject SearchPageObject = new SearchPageObject(driver);
 
-        MainPageObject.waitForElementAndClick(
-                By.xpath("//*[contains(@text,'Search Wikipedia')]"),
-                "Cannot find 'Search Wikipedia' input",
-                5
-        );
-
-        MainPageObject.waitForElementAndSendKeys(
-                By.xpath("//*[contains(@text,'Search Wikipedia')]"),
-                "Java",
-                "Cannot find search input",
-                5
-        );
-
-        MainPageObject.waitForElementPresent(
-                By.xpath("//android.widget.TextView[@resource-id=\"org.wikipedia:id/page_list_item_title\" and @text=\"Java (programming language)\"]"),
-                "Cannot find 'Object-oriented programming language' topic searching by 'java'",
-                10
-        );
-
-        driver.executeScript("mobile: backgroundApp", ImmutableMap.of("seconds", 2));
-
-        MainPageObject.waitForElementPresent(
-                By.xpath("//android.widget.TextView[@resource-id=\"org.wikipedia:id/page_list_item_title\" and @text=\"Java (programming language)\"]"),
-                "Cannot find article title after returning to the app",
-                10
-        );
+        SearchPageObject.clickSkipButton();
+        SearchPageObject.initSearchInput();
+        SearchPageObject.typeSearchLine("Java");
+        SearchPageObject.waitForSearchResult("Java (programming language)");
+        this.backgroundApp(2);
+        SearchPageObject.waitForSearchResult("Java (programming language)");
     }
 }
