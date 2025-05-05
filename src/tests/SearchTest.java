@@ -6,9 +6,9 @@ import org.junit.Test;
 
 public class SearchTest extends CoreTestCase
 {
+
     @Test
     public void testSearch() {
-
         SearchPageObject SearchPageObject = new SearchPageObject(driver);
         SearchPageObject.clickSkipButton();
         SearchPageObject.initSearchInput();
@@ -18,7 +18,6 @@ public class SearchTest extends CoreTestCase
 
     @Test
     public void testCancelSearch() {
-
         SearchPageObject SearchPageObject = new SearchPageObject(driver);
         SearchPageObject.clickSkipButton();
         SearchPageObject.initSearchInput();

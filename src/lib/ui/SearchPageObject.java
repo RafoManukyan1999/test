@@ -18,26 +18,21 @@ public class SearchPageObject extends MainPageObject {
                  ".//android.widget.TextView[@resource-id='org.wikipedia:id/page_list_item_title' and @text='{TITLE}'] and " +
                  ".//android.widget.TextView[@resource-id='org.wikipedia:id/page_list_item_description' and @text='{DESCRIPTION}']]";
 
-    public SearchPageObject(AppiumDriver driver)
-    {
+    public SearchPageObject(AppiumDriver driver) {
         super(driver);
     }
 
-    /* TEMPLATES METHODS */
-    private static String getResultSearchElement(String substring)
-    {
+    private String getResultSearchElement(String substring) {
         return SEARCH_RESULT_BY_SUBSTRING_TPL.replace("{SUBSTRING}", substring);
     }
 
-    private static String getResultSearchElementByTitleAndDescription(String title, String description)
-    {
+    private String getResultSearchElementByTitleAndDescription(String title, String description) {
         return SEARCH_RESULT_BY_TITLE_AND_DESCRIPTION_TPL
                 .replace("{TITLE}", title)
                 .replace("{DESCRIPTION}", description);
     }
 
-    public void waitForElementByTitleAndDescription(String title, String description)
-    {
+    public void waitForElementByTitleAndDescription(String title, String description) {
         String search_result_xpath = getResultSearchElementByTitleAndDescription(title, description);
         waitForElementPresent(
                 By.xpath(search_result_xpath),
@@ -45,10 +40,8 @@ public class SearchPageObject extends MainPageObject {
                 15
         );
     }
-    /* TEMPLATES METHODS */
 
-    public static void clickSkipButton()
-    {
+    public void clickSkipButton() {
         waitForElementAndClick(
                 By.xpath(SEARCH_SKIP_LINK),
                 "Cannot find and click skip button",
@@ -56,8 +49,7 @@ public class SearchPageObject extends MainPageObject {
         );
     }
 
-    public static void initSearchInput()
-    {
+    public void initSearchInput() {
         waitForElementAndClick(
                 By.id(SEARCH_INIT_ELEMENT),
                 "Cannot find and click search init element",
@@ -70,8 +62,7 @@ public class SearchPageObject extends MainPageObject {
         );
     }
 
-    public static void waitForCancelButtonToAppear()
-    {
+    public void waitForCancelButtonToAppear() {
         waitForElementPresent(
                 By.id(SEARCH_CANCEL_BUTTON),
                 "Cannot find search cancel button",
@@ -79,8 +70,7 @@ public class SearchPageObject extends MainPageObject {
         );
     }
 
-    public static void waitForCancelButtonToDisappear()
-    {
+    public void waitForCancelButtonToDisappear() {
         waitForElementNotPresent(
                 By.id(SEARCH_CANCEL_BUTTON),
                 "Search cancel button is still present!",
@@ -88,8 +78,7 @@ public class SearchPageObject extends MainPageObject {
         );
     }
 
-    public static void clickCancelSearch()
-    {
+    public void clickCancelSearch() {
         waitForElementAndClick(
                 By.id(SEARCH_CANCEL_BUTTON),
                 "Cannot find and click search cancel button",
@@ -97,26 +86,25 @@ public class SearchPageObject extends MainPageObject {
         );
     }
 
-    public static void typeSearchLine(String search_line)
-    {
+    public void typeSearchLine(String search_line) {
         waitForElementAndSendKeys(
                 By.xpath(SEARCH_INPUT),
-                search_line, "Cannot find and type into search input",
+                search_line, 
+                "Cannot find and type into search input",
                 5
         );
     }
 
-    public void waitForSearchResult(String substring)
-    {
+    public void waitForSearchResult(String substring) {
         String search_result_xpath = getResultSearchElement(substring);
         waitForElementPresent(
                 By.xpath(search_result_xpath),
                 "Cannot find search result with substring " + substring,
-                15);
+                15
+        );
     }
 
-    public void clickByArticleWithSubstring(String substring)
-    {
+    public void clickByArticleWithSubstring(String substring) {
         String search_result_xpath = getResultSearchElement(substring);
         waitForElementAndClick(
                 By.xpath(search_result_xpath),
@@ -125,8 +113,7 @@ public class SearchPageObject extends MainPageObject {
         );
     }
 
-    public int getAmountOfFoundArticles()
-    {
+    public int getAmountOfFoundArticles() {
         waitForElementPresent(
                 By.xpath(SEARCH_RESULT_ELEMENT),
                 "Cannot find results searching by",
@@ -135,16 +122,15 @@ public class SearchPageObject extends MainPageObject {
         return getAmountOfElements(By.xpath(SEARCH_RESULT_ELEMENT));
     }
 
-    public void waitForEmptyResultsLabel()
-    {
+    public void waitForEmptyResultsLabel() {
         waitForElementPresent(
                 By.id(SEARCH_EMPTY_RESULT_ELEMENT),
                 "Cannot find empty result element",
-                15);
+                15
+        );
     }
 
-    public void assertThereIsNoResultOfSearch()
-    {
+    public void assertThereIsNoResultOfSearch() {
         assertElementNotPresent(
                 By.id(SEARCH_RESULT_ELEMENT),
                 "We supposed not to find any results"
