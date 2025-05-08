@@ -34,7 +34,6 @@ public class SearchTest extends CoreTestCase
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("Java");
         int amount_of_search_result = SearchPageObject.getAmountOfFoundArticles();
-
         assertTrue(
                 "We found too few results",
                 amount_of_search_result > 0
