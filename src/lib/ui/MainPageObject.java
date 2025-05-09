@@ -75,7 +75,7 @@ public class MainPageObject {
     {
         int alreadySwiped = 0;
         
-        while (driver.findElements(By.id(locator)).isEmpty()) {
+        while (driver.findElements(getLocatorByString(locator)).isEmpty()) {
             if (alreadySwiped >= maxSwipes) {
                 waitForElementPresent(locator, "Cannot find element by swiping up.\n" + errorMessage, 0);
                 return;
