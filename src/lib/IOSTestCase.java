@@ -5,6 +5,7 @@ import io.appium.java_client.ios.IOSDriver;
 import junit.framework.TestCase;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import java.net.URI;
 import java.net.URL;
 
 public class IOSTestCase extends TestCase {
@@ -23,7 +24,7 @@ public class IOSTestCase extends TestCase {
         caps.setCapability("automationName", "XCUITest");
         caps.setCapability("app", "/Users/rafomanukyan/Desktop/JavaAppiumAutomation/apks/Wikipedia.app");
 
-        driver = new IOSDriver(new URL("http://127.0.0.1:4723"), caps);
+        driver = new IOSDriver(URI.create("http://127.0.0.1:4723").toURL(), caps);
     }
 
     @Override

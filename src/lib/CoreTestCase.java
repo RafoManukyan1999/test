@@ -5,6 +5,8 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
 import junit.framework.TestCase;
 import org.openqa.selenium.remote.DesiredCapabilities;
+
+import java.net.URI;
 import java.net.URL;
 import java.util.Map;
 
@@ -22,9 +24,9 @@ public class CoreTestCase extends TestCase {
         DesiredCapabilities caps = getCapabilitiesForPlatform(getPlatform());
 
         if (getPlatform().equals(PLATFORM_ANDROID)) {
-            driver = new AndroidDriver(new URL(appiumURL), caps);
+            driver = new AndroidDriver(URI.create(appiumURL).toURL(), caps);
         } else if (getPlatform().equals(PLATFORM_IOS)) {
-            driver = new IOSDriver(new URL(appiumURL), caps);
+            driver = new IOSDriver(URI.create(appiumURL).toURL(), caps);
         } else {
             throw new Exception("Cannot determine platform: " + getPlatform());
         }
