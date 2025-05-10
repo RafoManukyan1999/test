@@ -56,5 +56,4 @@ public class MyListsPageObject extends MainPageObject {
                 15
         );
     }
-
 }

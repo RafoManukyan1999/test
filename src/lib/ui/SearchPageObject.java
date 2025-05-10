@@ -22,6 +22,7 @@ public class SearchPageObject extends MainPageObject {
         super(driver);
     }
 
+    /* TEMPLATES METHODS */
     private String getResultSearchElement(String substring) {
         return SEARCH_RESULT_BY_SUBSTRING_TPL.replace("{SUBSTRING}", substring);
     }
@@ -40,6 +41,7 @@ public class SearchPageObject extends MainPageObject {
                 15
         );
     }
+    /* TEMPLATES METHODS */
 
     public void clickSkipButton() {
         waitForElementAndClick(

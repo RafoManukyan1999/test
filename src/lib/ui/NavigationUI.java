@@ -13,7 +13,7 @@ public class NavigationUI extends MainPageObject{
         super(driver);
     }
 
-    public static void clickViewArticle()
+    public void clickViewArticle()
     {
         waitForElementAndClick(
                 By.xpath(OPTIONS_ViEW_LIST_BUTTON),
